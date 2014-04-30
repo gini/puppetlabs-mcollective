@@ -8,5 +8,7 @@ class mcollective::server::config::connector::rabbitmq {
   # 1-based)
   $pool_size = size($mcollective::middleware_hosts)
   $indexes = range('1', $pool_size)
-  mcollective::server::config::connector::rabbitmq::hosts_iteration { $indexes: }
+  each($indexes) |$index| {
+    mcollective::server::config::connector::rabbitmq::hosts_iteration { "${index}": }
+  }
 }

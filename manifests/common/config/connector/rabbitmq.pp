@@ -22,5 +22,7 @@ class mcollective::common::config::connector::rabbitmq {
   }
 
   $indexes = range('1', $pool_size)
-  mcollective::common::config::connector::rabbitmq::hosts_iteration { $indexes: }
+  each($indexes) |$index| {
+    mcollective::common::config::connector::rabbitmq::hosts_iteration { "${index}": }
+  }
 }
